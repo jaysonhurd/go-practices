@@ -8,6 +8,8 @@
 *.so
 *.dylib
 
+fixtures/100mb-examplefile-com.txt
+
 # Test binary, built with `go test -c`
 *.test
 
@@ -20,6 +22,9 @@
 # Go workspace file
 go.work
 go.work.sum
+go.sum
 
 # env file
 .env
+
+.idea/
