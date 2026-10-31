@@ -4,7 +4,7 @@
 
 This repository contains standalone Go learning examples and an HTTP middleware
 service. The single module is `github.com/jaysonhurd/go-practices`, supporting Go
-1.24.2 or later. Run commands from the repository root.
+1.27.3 or later. Run commands from the repository root.
 
 - `concurrency/channels`, `concurrency/waitgroups`, and `concurrency/worker` are
   separate executables reading local text fixtures.
@@ -23,7 +23,7 @@ and explicit dependencies. Preserve existing in-progress work.
 
 ## Build and development
 
-Prerequisites: Go 1.24.2+, Python 3.9+, Git, and Bash. No build tags are required.
+Prerequisites: Go 1.27.3+, Python 3.9+, Git, and Bash. No build tags are required.
 
 ```sh
 go build ./...
@@ -57,9 +57,9 @@ No migrations or generated code are needed.
 - Propagate contexts for I/O and respect cancellation. Validate configuration at
   startup. Keep tokens, query strings with credentials, and claims out of logs
   and telemetry. Never hardcode credentials.
-- Preserve JSON v1 and existing wire formats: `encoding/json/v2` is unavailable
-  on the minimum Go 1.24.2 toolchain. Do not enable experiments or upgrade Go
-  merely to apply a preference.
+- Use `encoding/json/v2` for application JSON and tests. Use `encoding/json/jsontext`
+  for streaming encoders. Preserve existing wire formats, including the health
+  response newline. Go 1.27.3 requires no JSON experiment flag.
 - OpenTelemetry stdout trace and metric exporters are opt-in through
   `OTEL_STDOUT_ENABLED=true` for HTTP executables. Providers belong to the
   executable lifecycle and must be shut down. Do not invent collector endpoints.

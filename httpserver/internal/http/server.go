@@ -3,7 +3,8 @@ package http
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"errors"
 	"log/slog"
 	"net/http"
@@ -118,7 +119,7 @@ func healthHandler(logger *slog.Logger) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(headerContentType, contentTypeJSON)
 
-		if err := json.NewEncoder(w).Encode(map[string]string{"health": "true"}); err != nil {
+		if err := json.MarshalEncode(jsontext.NewEncoder(w), map[string]string{"health": "true"}); err != nil {
 			logger.ErrorContext(r.Context(), logHealthFailed, slog.Any("error", err))
 		}
 	}
