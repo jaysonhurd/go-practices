@@ -22,9 +22,17 @@ fixtures/100mb-examplefile-com.txt
 # Go workspace file
 go.work
 go.work.sum
-go.sum
 
 # env file
 .env
 
 .idea/
+
+# Local Codex state, IDE files, JSON, and generated logs
+.codex/
+.vscode/
+*.json
+*.log
+__pycache__/
+logs/*
+!logs/.gitkeep
