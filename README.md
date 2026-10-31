@@ -1,7 +1,7 @@
 # Go practices
 
 Go concurrency exercises, an HTTP client example, and a JWT-protected HTTP server.
-The repository uses one module, `github.com/jaysonhurd/go-practices`, with Go 1.24.2
+The repository uses one module, `github.com/jaysonhurd/go-practices`, with Go 1.27.3
 or later. Run commands from the repository root.
 
 ## Examples
@@ -45,15 +45,19 @@ both HTTP servers drain requests first. No collector or credentials are needed.
 Spans use a fixed name; metrics label only normalized HTTP methods. Request URLs,
 headers, and JWT claims are excluded. No global provider is replaced.
 
-OpenTelemetry Go v1.35.0 API, SDK, and stdout exporters provide this opt-in
-instrumentation while retaining Go 1.24.2 compatibility. These are new production
-dependencies; zerolog is removed. JSON continues to use `encoding/json` because
-`encoding/json/v2` is unavailable on the declared minimum toolchain. No Go upgrade
-or experiment is enabled.
+OpenTelemetry Go API, SDK, and stdout exporters provide this opt-in
+instrumentation. Dependency versions are recorded in `go.mod` and `go.sum`.
+Direct and imported transitive dependencies use current releases compatible
+with Go 1.27.3. Upstream-only test dependencies in the module graph retain their
+upstream requirements; they are not imported by this repository.
+Application JSON and test decoding use `encoding/json/v2`, with
+`encoding/json/jsontext` for streaming output. The health endpoint retains its
+existing JSON body and trailing newline. No experiment flag is required.
+Third-party libraries retain control of their own internal JSON implementations.
 
 ## Validation
 
-Prerequisites: Go 1.24.2+ (`go` and `gofmt` on PATH), Python 3.9+, Git, and Bash.
+Prerequisites: Go 1.27.3+ (`go` and `gofmt` on PATH), Python 3.9+, Git, and Bash.
 There are no external-service requirements or build tags for tests.
 
 ```sh

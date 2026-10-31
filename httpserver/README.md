@@ -1,6 +1,6 @@
 # HTTP server
 
-Requires Go 1.24.2 or later. From the repository root, set a signing secret
+Requires Go 1.27.3 or later. From the repository root, set a signing secret
 and start the server:
 
 ```sh
